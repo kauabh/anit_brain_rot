@@ -384,11 +384,13 @@ body {
 }
 
 .flashcard-feedback {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     display: flex;
     gap: 1rem;
     justify-content: center;
     width: 100%;
+    /* Ensure it doesn't get pushed out */
+    flex-shrink: 0;
 }
 
 .btn-feedback {
