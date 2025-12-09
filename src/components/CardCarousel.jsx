@@ -11,15 +11,20 @@ const CardCarousel = ({ cards, onEdit, onDelete }) => {
     }, [cards, activeId]);
 
     // Scroll active card into view on mount or when activeId changes (initially)
+    // Scroll active card into view ONLY on initial mount/data load
+    const initialScrollDone = useRef(false);
+
     useEffect(() => {
-        if (activeId && listRef.current) {
+        if (activeId && listRef.current && !initialScrollDone.current) {
             const activeEl = listRef.current.querySelector(`[data-id='${activeId}']`);
             if (activeEl) {
                 activeEl.scrollIntoView({ block: 'center', behavior: 'smooth' });
+                initialScrollDone.current = true;
             }
         }
-    }, [activeId]);
+    }, [activeId, cards]); // Run when cards load/activeId is set initially
 
+    // Use scroll handler for active detection (Math based is more reliable for free-scroll)
     const handleScroll = () => {
         if (!listRef.current) return;
 
@@ -34,6 +39,9 @@ const CardCarousel = ({ cards, onEdit, onDelete }) => {
             if (!child.classList.contains('carousel-item')) return;
 
             const rect = child.getBoundingClientRect();
+            // Check if card is visible at all
+            if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
             const childCenter = rect.top + rect.height / 2;
             const dist = Math.abs(childCenter - containerCenter);
 
@@ -46,6 +54,7 @@ const CardCarousel = ({ cards, onEdit, onDelete }) => {
         if (closest) {
             const id = closest.dataset.id;
             // Ensure we compare types correctly (string vs number)
+            // AND ensure we don't trigger re-renders if it hasn't changed
             if (id && String(id) !== String(activeId)) {
                 setActiveId(Number(id) || id);
             }
