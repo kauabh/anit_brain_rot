@@ -66,7 +66,13 @@ const CardCarousel = ({ cards, onEdit, onDelete }) => {
     }
 
     return (
-        <div className="carousel-container" ref={listRef} onScroll={handleScroll}>
+        <div
+            className="carousel-container"
+            ref={listRef}
+            onScroll={handleScroll}
+            onTouchMove={handleScroll} // Ensure mobile updates during swipe
+            onTouchEnd={handleScroll}  // Ensure final update after swipe
+        >
             <div className="carousel-spacer"></div>
             {cards.map(card => {
                 const isActive = activeId == card.id;
