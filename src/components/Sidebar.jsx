@@ -1,11 +1,14 @@
 import React from 'react';
 import { SECTIONS } from '../data/content';
 
-const Sidebar = ({ activeTab, onTabChange, onAddCard, onBulkUpload }) => {
+const Sidebar = ({ activeTab, onTabChange, onAddCard, onBulkUpload, isOpen, onClose }) => {
     return (
-        <aside className="sidebar">
-            <div className="logo">
-                <span>⚡</span> BrainRot
+        <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+            <div className="sidebar-header">
+                <div className="logo">
+                    <span>🧠</span> BrainRot
+                </div>
+                <button className="close-sidebar-btn" onClick={onClose}>×</button>
             </div>
 
             <div className="sidebar-actions">
