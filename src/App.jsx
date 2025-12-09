@@ -10,6 +10,7 @@ const App = () => {
   const [activeTab, setActiveTab] = useState('history');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBulkModalOpen, setIsBulkModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile sidebar state
 
   // Generate simple single-digit addition cards
   const generateMathCards = () => {
@@ -109,13 +110,42 @@ const App = () => {
 
   return (
     <div className="app-container">
+      {/* Mobile Hamburger Button */}
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setIsSidebarOpen(true)}
+        aria-label="Open Menu"
+      >
+        ☰
+      </button>
+
+      {/* Overlay for mobile sidebar */}
+      {isSidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       <Sidebar
         activeTab={activeTab}
-        onTabChange={setActiveTab}
-        onAddCard={() => setIsModalOpen(true)}
-        onBulkUpload={() => setIsBulkModalOpen(true)}
+        onTabChange={(tab) => {
+          setActiveTab(tab);
+          setIsSidebarOpen(false); // Close on selection
+        }}
+        onAddCard={() => {
+          setIsModalOpen(true);
+          setIsSidebarOpen(false);
+        }}
+        onBulkUpload={() => {
+          setIsBulkModalOpen(true);
+          setIsSidebarOpen(false);
+        }}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
-      <main className="content-area">
+
+      <div className="content-area">
         {/* Pass the specific deck for the active tab */}
         <Content
           activeTab={activeTab}
@@ -123,7 +153,7 @@ const App = () => {
           onUpdateCard={handleUpdateCard}
           onDeleteCard={handleDeleteCard}
         />
-      </main>
+      </div>
 
       <AddCardModal
         isOpen={isModalOpen}
