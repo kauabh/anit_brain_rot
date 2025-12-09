@@ -660,8 +660,11 @@ body {
     width: 100%;
     /* Constrain height to force valid scroll container */
     height: 75vh;
+    /* CRITICAL: position: relative creates a local coordinate system */
+    /* This ensures child.offsetTop is measured relative to THIS container, not the page */
+    position: relative;
     overflow-y: auto;
-    overflow-y: auto;
+    overflow-x: hidden;
     /* scroll-snap-type removed for desktop */
     /* Smoother, less sticky */
     display: flex;
