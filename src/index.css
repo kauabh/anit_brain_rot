@@ -893,24 +893,41 @@ body {
 
     /* Flashcard Adjustment */
     .flashcard-wrapper {
-        aspect-ratio: auto;
+        /* Fix aspect ratio issues by forcing a tall rect */
+        width: 100%;
+        height: 55vh;
+        /* Fixed height for mobile to enforce scroll */
         min-height: 400px;
-        max-height: 60vh;
+        aspect-ratio: auto;
+    }
+
+    .flashcard-inner {
+        height: 100%;
     }
 
     .flashcard-front,
     .flashcard-back {
         padding: 1.5rem;
-        /* Less padding */
+        height: 100%;
+        /* Force fill */
+        display: flex;
+        /* Ensure flex is active */
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        /* Hide spill */
     }
 
     .flashcard-text {
         font-size: clamp(1.5rem, 6vw, 2.5rem);
-        /* Smaller font */
+        max-height: 100%;
+        overflow-y: auto;
     }
 
     .flashcard-answer {
         font-size: clamp(1.8rem, 7vw, 3rem);
+        max-height: 80%;
+        overflow-y: auto;
     }
 
     /* Layout Stack for Carousel + Stats */
