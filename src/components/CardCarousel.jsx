@@ -29,7 +29,8 @@ const CardCarousel = ({ cards, onEdit, onDelete }) => {
         if (!listRef.current) return;
 
         const container = listRef.current;
-        const containerCenter = container.getBoundingClientRect().top + container.clientHeight / 2;
+        // Calculate center relative to the container's internal scroll position
+        const containerCenter = container.scrollTop + container.clientHeight / 2;
 
         const children = Array.from(container.children);
         let closest = null;
@@ -38,11 +39,11 @@ const CardCarousel = ({ cards, onEdit, onDelete }) => {
         children.forEach(child => {
             if (!child.classList.contains('carousel-item')) return;
 
-            const rect = child.getBoundingClientRect();
-            // Removed aggressive visibility check to ensure we always find a closest card
-            // if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+            // child.offsetTop gives position relative to the scroll container top
+            const childTop = child.offsetTop;
+            const childHeight = child.clientHeight;
 
-            const childCenter = rect.top + rect.height / 2;
+            const childCenter = childTop + childHeight / 2;
             const dist = Math.abs(childCenter - containerCenter);
 
             if (dist < minDist) {
