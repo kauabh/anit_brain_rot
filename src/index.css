@@ -927,19 +927,20 @@ body {
     }
 
     .flashcard-text {
-        font-size: clamp(1.5rem, 6vw, 2.5rem);
+        /* Smaller font as requested */
+        font-size: clamp(1rem, 5vw, 2rem);
         max-height: 100%;
         overflow-y: auto;
     }
 
     .flashcard-answer {
-        font-size: clamp(1.8rem, 7vw, 3rem);
+        /* Smaller font as requested */
+        font-size: clamp(1.2rem, 6vw, 2.5rem);
         /* In grid, this will fill the 1fr row */
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        /* Center text vertically */
         max-height: 100%;
         overflow-y: auto;
     }
