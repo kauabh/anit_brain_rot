@@ -333,6 +333,11 @@ body {
     word-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
+
+    /* Updated for Overflow Safety */
+    max-height: 100%;
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 /* Back Styling */
@@ -365,12 +370,17 @@ body {
     color: var(--accent-primary);
     text-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
     margin-bottom: auto;
-    /* Push to center/top */
     margin-top: auto;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
+
+    /* Updated for Overflow Safety */
+    max-height: 80%;
+    /* Leave space for buttons */
+    overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 .flashcard-feedback {
@@ -650,7 +660,9 @@ body {
     /* Constrain height to force valid scroll container */
     height: 75vh;
     overflow-y: auto;
-    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    /* scroll-snap-type removed for desktop */
+    /* Smoother, less sticky */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -919,6 +931,8 @@ body {
 
     .carousel-container {
         height: 60vh;
+        scroll-snap-type: y mandatory;
+        /* Enforce snap on mobile */
     }
 
     .carousel-item {
