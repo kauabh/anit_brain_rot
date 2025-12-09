@@ -915,34 +915,59 @@ body {
         overflow: hidden;
     }
 
+    /* Ensure feedback buttons fit - Absolute Positioning */
+    .flashcard-feedback {
+        position: absolute;
+        bottom: 1.5rem;
+        left: 0;
+        width: 100%;
+        padding: 0 1.5rem;
+        /* Match card padding */
+        margin: 0;
+        height: 50px;
+        /* Explicit height reserved */
+        gap: 0.5rem;
+        z-index: 10;
+        background: inherit;
+        /* Prevent transparency bugs */
+    }
+
+    .btn-feedback {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
     .flashcard-back {
         padding: 1.5rem;
         height: 100%;
-        display: grid;
-        /* Switch to Grid for robust footer */
-        /* CRITICAL: minmax(0, 1fr) allows the row to shrink! 1fr alone does not. */
-        grid-template-rows: minmax(0, 1fr) auto;
-        gap: 1rem;
+        display: block;
+        /* Remove Grid/Flex, use manual positioning */
+        position: relative;
         overflow: hidden;
     }
 
     .flashcard-text {
         /* Smaller font as requested */
         font-size: clamp(1rem, 5vw, 2rem);
-        max-height: 100%;
+        height: 100%;
+        /* Front has no buttons, full height */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         overflow-y: auto;
     }
 
     .flashcard-answer {
         /* Smaller font as requested */
         font-size: clamp(1.2rem, 6vw, 2.5rem);
-        /* In grid, this will fill the 1fr row */
-        height: 100%;
+        /* Calculate height: 100% minus space for buttons (approx 60px + margins) */
+        height: calc(100% - 60px);
         display: flex;
         flex-direction: column;
         justify-content: center;
-        max-height: 100%;
         overflow-y: auto;
+        padding-bottom: 1rem;
+        /* Visual gap */
     }
 
     /* Layout Stack for Carousel + Stats */
