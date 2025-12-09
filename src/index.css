@@ -920,8 +920,8 @@ body {
         height: 100%;
         display: grid;
         /* Switch to Grid for robust footer */
-        grid-template-rows: 1fr auto;
-        /* Content takes space, footer is fixed */
+        /* CRITICAL: minmax(0, 1fr) allows the row to shrink! 1fr alone does not. */
+        grid-template-rows: minmax(0, 1fr) auto;
         gap: 1rem;
         overflow: hidden;
     }
@@ -973,6 +973,9 @@ body {
         aspect-ratio: auto;
         /* Allow flexible height if needed */
         min-height: 350px;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        /* Force stop at every card */
     }
 }
 
