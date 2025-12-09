@@ -39,8 +39,8 @@ const CardCarousel = ({ cards, onEdit, onDelete }) => {
             if (!child.classList.contains('carousel-item')) return;
 
             const rect = child.getBoundingClientRect();
-            // Check if card is visible at all
-            if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+            // Removed aggressive visibility check to ensure we always find a closest card
+            // if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
             const childCenter = rect.top + rect.height / 2;
             const dist = Math.abs(childCenter - containerCenter);
